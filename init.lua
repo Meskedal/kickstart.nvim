@@ -316,6 +316,18 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+vim.cmd([[
+  augroup custom_filetypes
+    autocmd!
+    autocmd BufRead,BufNewFile *.v setfiletype v
+    autocmd BufRead,BufNewFile *.vlang setfiletype v
+    autocmd BufRead,BufNewFile *.vscript setfiletype v
+    autocmd BufEnter *.v setfiletype v
+    autocmd BufEnter *.vlang setfiletype v
+    autocmd BufEnter *.vscript setfiletype v
+  augroup END
+]])
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -429,7 +441,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -569,10 +581,21 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
+  clangd = {},
+  gopls = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
   -- pyright = {},
-  -- rust_analyzer = {},
+  rust_analyzer = {},
+  v_analyzer = {
+    filetypes = { 'v', 'vlang' },
+  },
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
