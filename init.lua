@@ -102,6 +102,12 @@ require('lazy').setup({
   },
 
   {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {}, -- this is equalent to setup({}) functions
+  },
+
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -315,6 +321,8 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+vim.wo.relativenumber = true
 
 vim.cmd([[
   augroup custom_filetypes
