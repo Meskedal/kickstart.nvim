@@ -96,18 +96,6 @@ require('lazy').setup({
   },
 
   {
-    'github.com/copilot.vim',
-    url = 'git@github.com:github/copilot.vim.git',
-    event = "VeryLazy",
-  },
-
-  {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {}, -- this is equalent to setup({}) functions
-  },
-
-  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -278,7 +266,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -323,6 +311,8 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 vim.wo.relativenumber = true
+
+vim.o.spell = true
 
 vim.cmd([[
   augroup custom_filetypes
@@ -369,11 +359,18 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        -- ['<C-u>'] = false,
+        -- ['<C-d>'] = false,
+        ['<C-j>'] = require('telescope.actions').move_selection_next,
+        ['<C-k>'] = require('telescope.actions').move_selection_previous,
       },
     },
   },
+  pickers = {
+    find_files = {
+      hidden = true,
+    },
+  }
 }
 
 -- Enable telescope fzf native, if installed
@@ -449,7 +446,10 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v', "markdown" },
+    sync_install = true,
+    modules = {},
+    ignore_install = {},
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
