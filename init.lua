@@ -209,6 +209,9 @@ require('lazy').setup({
         component_separators = '|',
         section_separators = '',
       },
+      sections = {
+        lualine_c = {{'filename', path = 1 }},
+      },
     },
   },
 
@@ -366,11 +369,11 @@ require('telescope').setup {
       },
     },
   },
-  pickers = {
-    find_files = {
-      hidden = true,
-    },
-  }
+  -- pickers = {
+  --   find_files = {
+  --     hidden = true,
+  --   },
+  -- }
 }
 
 -- Enable telescope fzf native, if installed
@@ -446,7 +449,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v', "markdown" },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v', 'markdown' },
     sync_install = true,
     modules = {},
     ignore_install = {},
@@ -590,15 +593,15 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {},
-  gopls = {
-    gopls = {
-      analyses = {
-        unusedparams = true,
-      },
-      staticcheck = true,
-      gofumpt = true,
-    },
-  },
+  -- gopls = {
+  --   gopls = {
+  --     analyses = {
+  --       unusedparams = true,
+  --     },
+  --     staticcheck = true,
+  --     gofumpt = true,
+  --   },
+  -- },
   -- pyright = {},
   rust_analyzer = {},
   v_analyzer = {
@@ -615,6 +618,7 @@ local servers = {
       -- diagnostics = { disable = { 'missing-fields' } },
     },
   },
+  -- matlab_ls = {},
 }
 
 -- Setup neovim lua configuration
