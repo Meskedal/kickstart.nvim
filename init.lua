@@ -619,6 +619,7 @@ local servers = {
     },
   },
   -- matlab_ls = {},
+  cmake = {},
 }
 
 -- Setup neovim lua configuration
