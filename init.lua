@@ -369,11 +369,11 @@ require('telescope').setup {
       },
     },
   },
-  pickers = {
-    find_files = {
-      hidden = true,
-    },
-  }
+  -- pickers = {
+  --   find_files = {
+  --     hidden = true,
+  --   },
+  -- }
 }
 
 -- Enable telescope fzf native, if installed
@@ -449,7 +449,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v', "markdown" },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v', 'markdown' },
     sync_install = true,
     modules = {},
     ignore_install = {},
