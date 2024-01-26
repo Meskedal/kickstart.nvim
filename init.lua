@@ -618,6 +618,8 @@ local servers = {
       -- diagnostics = { disable = { 'missing-fields' } },
     },
   },
+  -- matlab_ls = {},
+  cmake = {},
 }
 
 -- Setup neovim lua configuration
