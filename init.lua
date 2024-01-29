@@ -692,10 +692,23 @@ cmp.setup {
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Replaced <C-b> with <C-u> as this matches behavior in vscode
     ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Replaced <C-f> with <C-d> as this matches behavior in vscode
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<tab>'] = cmp.mapping.confirm { -- Replaced <CR> with <tab> as this matches behavior in vscode
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
+    -- ['<CR>'] = cmp.mapping.confirm {
+    --   behavior = cmp.ConfirmBehavior.Replace,
+    --   select = true,
+    -- },
+    ['<tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+          
+        }
+      elseif require("copilot.suggestion").is_visible() then
+        require("copilot.suggestion").accept();
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
     ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
