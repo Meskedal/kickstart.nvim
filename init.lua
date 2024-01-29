@@ -205,7 +205,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'auto',
         component_separators = '|',
         section_separators = '',
       },
@@ -689,10 +689,10 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Replaced <C-b> with <C-u> as this matches behavior in vscode
+    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Replaced <C-f> with <C-d> as this matches behavior in vscode
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
+    ['<tab>'] = cmp.mapping.confirm { -- Replaced <CR> with <tab> as this matches behavior in vscode
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
@@ -721,6 +721,14 @@ cmp.setup {
     { name = 'path' },
   },
 }
+
+-- cmp.event:on("menu_opened", function()
+--   vim.b.copilot_suggestion_hidden = true
+-- end)
+--
+-- cmp.event:on("menu_closed", function()
+--   vim.b.copilot_suggestion_hidden = false
+-- end)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

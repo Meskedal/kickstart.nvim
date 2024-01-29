@@ -6,8 +6,7 @@ return {
       require('mkdnflow').setup({
         mappings = {
           MkdnToggleToDo = {{'n', 'v'}, '<leader>tm'},
-          -- MkdnNextLink = false,
-          -- MkdnPrevLink = false,
+          MkdnEnter = false, -- Disabled because it creates paths with weird pathing relative to the root file
           MkdnTableNextCell = false, -- Disabled because it conflicts with copilot tab complete in insert mode
           MkdnTablePrevCell = false, -- Disabled because it conflicts with copilot tab complete in insert mode 
         }
