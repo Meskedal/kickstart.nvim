@@ -692,19 +692,18 @@ cmp.setup {
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Replaced <C-b> with <C-u> as this matches behavior in vscode
     ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Replaced <C-f> with <C-d> as this matches behavior in vscode
     ['<C-Space>'] = cmp.mapping.complete {},
-    -- ['<CR>'] = cmp.mapping.confirm {
-    --   behavior = cmp.ConfirmBehavior.Replace,
-    --   select = true,
-    -- },
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
     ['<tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.confirm {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
-          
         }
-      elseif require("copilot.suggestion").is_visible() then
-        require("copilot.suggestion").accept();
+      -- elseif require("copilot.suggestion").is_visible() then
+      --   require("copilot.suggestion").accept();
       else
         fallback()
       end
@@ -734,14 +733,6 @@ cmp.setup {
     { name = 'path' },
   },
 }
-
--- cmp.event:on("menu_opened", function()
---   vim.b.copilot_suggestion_hidden = true
--- end)
---
--- cmp.event:on("menu_closed", function()
---   vim.b.copilot_suggestion_hidden = false
--- end)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
