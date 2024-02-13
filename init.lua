@@ -583,6 +583,7 @@ require('which-key').register({
 require('mason').setup()
 require('mason-lspconfig').setup()
 
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -602,8 +603,18 @@ local servers = {
       gofumpt = true,
     },
   },
+
   -- pyright = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    settings = {
+      ['rust-analyzer'] = {
+        cargo = {
+          allFeatures = true,
+        },
+      },
+    }
+
+  },
   v_analyzer = {
     filetypes = { 'v', 'vlang' },
   },
