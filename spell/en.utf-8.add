@@ -1,6 +1,8 @@
 config
 linux
 DHCP
-IMS
 CIDR
 ufw
+mutex
+redistributable
+permitivity

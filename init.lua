@@ -449,7 +449,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v', 'markdown' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'v', 'markdown_inline', 'c_sharp',"proto"},
     sync_install = true,
     modules = {},
     ignore_install = {},
@@ -592,7 +592,12 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  clangd = {},
+  bufls = {
+    filetypes = { 'proto' },
+  },
+  clangd = {
+    filetypes = { 'cpp', 'c', 'cc', 'h', 'hpp' }
+  },
   -- gopls = {
   --   gopls = {
   --     analyses = {
@@ -602,14 +607,14 @@ local servers = {
   --     gofumpt = true,
   --   },
   -- },
-  -- pyright = {},
+  pyright = {},
   rust_analyzer = {},
   v_analyzer = {
     filetypes = { 'v', 'vlang' },
   },
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+  omnisharp = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -689,13 +694,25 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Replaced <C-b> with <C-u> as this matches behavior in vscode
+    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Replaced <C-f> with <C-d> as this matches behavior in vscode
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
+    ['<tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.confirm {
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        }
+      -- elseif require("copilot.suggestion").is_visible() then
+      --   require("copilot.suggestion").accept();
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
     ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
